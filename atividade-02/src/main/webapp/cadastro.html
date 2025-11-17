@@ -95,13 +95,13 @@
             		
             		document.getElementById("erro").innerHTML = "";
             		
-		            switch (status) {
-			            case '12111bcc025':
+		            switch (status.toUpperCase()) {
+			            case '12111BCC025':
 			              document.getElementById("foto-aluno").src = "fotos/gustavo.jpg";
 			              document.getElementById("foto-aluno").style.display = "block";
 			              break;
 			              
-			            case '12111bcc057':			              
+			            case '12111BCC057':			              
 			              document.getElementById("foto-aluno").src = "fotos/joao.jpg";
 			              document.getElementById("foto-aluno").style.display = "block";
 			              break;
@@ -116,13 +116,13 @@
 				          document.getElementById("foto-aluno").style.display = "block";
 				          break;
 			            
-			            case '12011bcc040':			              
-				          document.getElementById("foto-aluno").src = "";
+			            case '12011BCC040':			              
+				          document.getElementById("foto-aluno").src = "fotos/tiago.jpg";
 				          document.getElementById("foto-aluno").style.display = "block";          
 				          break;
 				          
-			            case '111111111':			              
-				          document.getElementById("foto-aluno").src = "";
+			            case '12021BCC012':			              
+				          document.getElementById("foto-aluno").src = "fotos/marcelo.jpg";
 				          document.getElementById("foto-aluno").style.display = "block";
 				          break;
 				          

@@ -183,7 +183,9 @@
                 { matricula: "12111BCC057", nome: "João Pedro", descricao: "Desenvolvedor Java, especialista em Spring Boot, buscando aprimoramento front end por meio do React." },
                 { matricula: "12111BCC025", nome: "Gustavo Cruz", descricao: "Especialista em Cibersegurança e Infraestrutura Cloud. Focado em auditoria de segurança." },
                 { matricula: "11921BCC013", nome: "Paulo", descricao: "Estudante de Engenharia de Software com foco em Machine Learning e desenvolvimento Python." },
-                { matricula: "12011BCC034", nome: "Gullit Campos", descricao: "Data Engineer - Atuação na área de Engenharia de Dados, com foco na construção de pipelines escaláveis e no processamento de grandes volumes de dados. Responsável por desenvolver soluções de ingestão, transformação e disponibilização de dados para uso analítico e operacional." }
+                { matricula: "12011BCC034", nome: "Gullit Campos", descricao: "Data Engineer - Atuação na área de Engenharia de Dados, com foco na construção de pipelines escaláveis e no processamento de grandes volumes de dados. Responsável por desenvolver soluções de ingestão, transformação e disponibilização de dados para uso analítico e operacional." },
+                { matricula: "12011BCC040", nome: "Tiago", descricao: "Desenvolvedor Fullstack com experiência em JavaScript, Node.js e React, capaz de construir aplicações web completas. Atua tanto no backend quanto no frontend, com foco em performance, usabilidade e boas práticas de desenvolvimento."},
+                { matricula: "12021BCC012", nome: "Marcelo", descricao: "Engenheiro Devops focado em integrar desenvolvimento e operações, automatizando pipelines de CI/CD, gerenciando infraestrutura em nuvem e garantindo entrega contínua com alta confiabilidade. Atua com ferramentas como Docker, Kubernetes e Terraform, promovendo escalabilidade, observabilidade e cultura de colaboração entre equipes."},
             ];
 
             function iniciarAlunos() {
@@ -222,10 +224,10 @@
                 for (let i = 0; i < alunos.length; i++) {
                     const aluno = alunos[i];
                     
-                    if (aluno.matricula === matriculaDigitada) {
+                    if (aluno.matricula === matriculaDigitada.toUpperCase()) {
                         alunoEncontrado = true;
                         
-                        const descricaoElement = document.getElementById(`desc-aluno-${matriculaDigitada}`);
+                        const descricaoElement = document.getElementById(`desc-aluno-${matriculaDigitada.toUpperCase()}`);
 
                         descricaoElement.innerHTML = paragrafoInicial;
                         
