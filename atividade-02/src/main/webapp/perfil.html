@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Perfil - AprendaJá</title>
+        <style>
+            body {
+                font-size: 1.3em;
+                margin: 0;
+            }
+
+            header {
+                color: #c86eac;
+                text-align: center;
+                padding: 10px;
+                background-color: #fdb950;
+                
+                nav a {
+                    color: #8d5fa8;
+                    font-weight: bold;
+                    text-decoration: none;
+                    margin: 0 10px;
+                }
+            }
+            section {
+                padding: 5px 20px;
+                background-color: white;
+                margin: 10px;
+                border-radius: 5px;
+                
+            }
+            table {
+                margin-top: 10px;
+                border: 1px solid black;
+                border-collapse: collapse;
+            }
+
+            thead {
+                background-color: #eee;
+            }
+            
+            td {
+                text-align: center;
+                padding: 10px;
+                border: 1px solid #333;
+            }
+            
+            iframe {
+				border-width: 0;
+                border-radius: 4px;
+			}
+
+            #matriculaInput {
+                padding: 8px;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                font-size: 0.9em;
+                margin-right: 10px;
+            }
+
+            #checkButton {
+                padding: 8px 15px;
+                background-color: #b37c00;
+                color: white;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+                font-weight: bold;
+                transition: background-color 0.3s;
+            }
+
+
+            .perfil-aluno-bloco {
+                margin-bottom: 20px;
+                padding: 10px;
+                border: 1px solid #ddd;
+                border-radius: 4px;
+            }
+
+            .aluno-descricao {
+                border-left: 3px solid #fdb950;
+                padding-left: 10px;
+                display: block;
+                margin-top: 5px;
+                font-size: 1em; 
+            }
+            
+            #mensagemErro {
+                display: block;
+                color: #e53e3e;
+                font-weight: bold;
+                margin-top: 10px;
+            }
+
+            footer {
+                color: white;
+                text-align: center;
+                background-color: #fdb950;
+                padding: 10px;
+                margin-top: 20px;
+            }
+        </style>
+    </head>
+    <body>
+        <header>
+            <h1>Tecnologia e Software</h1>
+            <nav>
+                <a href="#">Início</a> 
+                <a href="#">Cursos</a> 
+                <a href="#">Planos</a>
+                <a href="#">Contato</a>
+            </nav>
+        </header>
+
+        <section>
+            <h2>Sobre o AprendaJá</h2>
+            <p id="paragrafo-inicial-apresentacao">
+                O <strong>AprendaJá</strong> é uma plataforma de cursos online que reúne diversos campos do conhecimento — da programação ao design, da fotografia ao marketing e muito mais. Aqui, qualquer pessoa pode explorar novas
+                habilidades e desenvolver seu potencial em diferentes áreas do saber. Nesta seção, em especial, mergulhamos no mundo da tecnologia e do desenvolvimento de software, com cursos voltados para quem quer aprender a programar,
+                criar aplicativos, entender como funcionam as ferramentas digitais e se preparar para o mercado de tecnologia. Além disso, o <strong>AprendaJá</strong> abre as portas para o aprendizado em áreas como música, culinária,
+                idiomas, finanças pessoais, produtividade e até bem-estar. Seja para impulsionar sua carreira ou simplesmente descobrir novas paixões, há sempre algo novo para aprender e ensinar dentro da nossa comunidade.
+            </p>
+        </section>
+
+        <section>
+            <h2>Cursos Populares da área</h2>
+            <table>
+            
+            	<thead>
+	                <tr>
+	                    <td>Curso</td>
+	                    <td>Instrutor</td>
+	                    <td>Preço</td>
+	                </tr>
+            	</thead>
+            	
+            	<tbody>
+	            	<tr>
+	                    <td>Desenvolvimento Web Completo</td>
+	                    <td>João Silva</td>
+	                    <td>R$ 89,90</td>
+	                </tr>
+	                
+	                <tr>
+	                    <td>Introdução à Inteligência Artificial</td>
+	                    <td>Maria Santos</td>
+	                    <td>R$ 69,90</td>
+	                </tr>
+	                
+	                <tr>
+	                    <td>Segurança em Redes</td>
+	                    <td>Pedro Oliveira</td>
+	                    <td>R$ 99,90</td>
+	                </tr>
+            	</tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>Conheça nossos alunos</h2>
+            <p>Digite sua matrícula para alterar a descrição:</p>
+            <div style="margin-bottom: 20px;">
+                <label for="matriculaInput">Digite sua Matrícula:</label>
+                <input type="text" id="matriculaInput" placeholder="Ex: 12345">
+                <button id="checkButton" onclick="verificarMatricula()">Verificar Matrícula</button>
+                <span id="mensagemErro"></span>
+            </div>
+
+            <div id="listaAlunos">
+            </div>
+        </section>
+
+        <section>
+            <h2>Conheça mais sobre nossa proposta</h2>
+            <iframe width="640" height="480" src="https://www.youtube.com/embed/Ke90Tje7VS0" title="Vídeo do curso de React JS"> </iframe>
+        </section>
+
+        <footer>Copyright © 2025 - Todos os direitos reservados.</footer>
+
+        <script>
+            const alunos = [
+                { matricula: "12111BCC057", nome: "João Pedro", descricao: "Desenvolvedor Java, especialista em Spring Boot, buscando aprimoramento front end por meio do React." },
+                { matricula: "12111BCC025", nome: "Gustavo Cruz", descricao: "Especialista em Cibersegurança e Infraestrutura Cloud. Focado em auditoria de segurança." },
+                { matricula: "11921BCC013", nome: "Paulo", descricao: "Estudante de Engenharia de Software com foco em Machine Learning e desenvolvimento Python." },
+                { matricula: "12011BCC034", nome: "Gullit Campos", descricao: "Data Engineer - Atuação na área de Engenharia de Dados, com foco na construção de pipelines escaláveis e no processamento de grandes volumes de dados. Responsável por desenvolver soluções de ingestão, transformação e disponibilização de dados para uso analítico e operacional." }
+            ];
+
+            function iniciarAlunos() {
+                const listaAlunosDiv = document.getElementById('listaAlunos');
+                let htmlContent = '<h3>Integrantes do Grupo</h3>';
+                
+                for (let i = 0; i < alunos.length; i++) {
+                    const aluno = alunos[i];
+                    
+                    htmlContent += `
+                        <div class="perfil-aluno-bloco">
+                            <h4>${aluno.nome} (Matrícula: ${aluno.matricula})</h4>
+                            <p>
+                                <strong>Descrição Profissional:</strong>
+                                <!-- ID único baseado na matrícula para a substituição -->
+                                <span class="aluno-descricao" id="desc-aluno-${aluno.matricula}">${aluno.descricao}</span>
+                            </p>
+                        </div>
+                    `;
+                }
+                
+                listaAlunosDiv.innerHTML = htmlContent;
+            }
+
+            function verificarMatricula() {
+                const matriculaDigitada = document.getElementById('matriculaInput').value.trim();
+                const mensagemErroElement = document.getElementById('mensagemErro');
+
+                mensagemErroElement.textContent = '';
+                document.getElementById('matriculaInput').style.borderColor = '#ccc';
+                
+                const paragrafoInicial = document.getElementById('paragrafo-inicial-apresentacao').innerHTML;
+
+                let alunoEncontrado = false;
+                
+                for (let i = 0; i < alunos.length; i++) {
+                    const aluno = alunos[i];
+                    
+                    if (aluno.matricula === matriculaDigitada) {
+                        alunoEncontrado = true;
+                        
+                        const descricaoElement = document.getElementById(`desc-aluno-${matriculaDigitada}`);
+
+                        descricaoElement.innerHTML = paragrafoInicial;
+                        
+                        document.getElementById('matriculaInput').style.borderColor = 'green';
+                        
+                        break; 
+                    }
+                }
+
+                if (!alunoEncontrado) {
+                    mensagemErroElement.textContent = `Erro: Matrícula não encontrada. Tente novamente.`;
+                    document.getElementById('matriculaInput').style.borderColor = 'red';
+                } else {
+                    document.getElementById('matriculaInput').value = '';
+                }
+            }
+
+            window.onload = iniciarAlunos;
+
+        </script>
+    </body>
+</html>
