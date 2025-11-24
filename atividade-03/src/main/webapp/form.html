@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cadastro - AprendaJá</title>
+
+    <style>
+        body {
+            font-size: 1.3em;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        form {
+            background-color: #fdb950;
+            border: 3px solid #f5b027;
+            border-radius: 12px;
+            width: 420px;
+            margin: 30px auto;
+            padding: 25px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-top: 12px;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        select {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #b37c00;
+            border-radius: 5px;
+        }
+
+        button {
+            color: #fff;
+            cursor: pointer;
+            font-weight: bold;
+            background-color: #f5b027;
+            padding: 10px 18px;
+            border: none;
+            border-radius: 5px;
+            margin-top: 15px;
+        }
+
+        button:hover {
+            background-color: #e0a322;
+        }
+
+        #relatorio {
+            width: 420px;
+            margin: 0 auto;
+            margin-top: 25px;
+            padding: 20px;
+            border: 2px solid #f5b027;
+            background: #fff4d6;
+            border-radius: 10px;
+            display: none;
+        }
+
+        #relatorio img {
+            width: 160px;
+            margin-top: 15px;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+<h1>Cadastro de Projeto</h1>
+
+<script>
+    // ---------- CRIAÇÃO DO FORMULÁRIO ----------
+    const form = document.createElement("form");
+
+    form.innerHTML = `
+        <label>Nome do Projeto:</label>
+        <input type="text" id="nome" required>
+
+        <label>Responsável:</label>
+        <input type="text" id="responsavel" required>
+
+        <label>Descrição:</label>
+        <input type="text" id="descricao" required>
+
+        <label>Categoria:</label>
+        <select id="categoria" required>
+            <option value="">Selecione...</option>
+            <option value="tecnologia">Tecnologia</option>
+            <option value="design">Design</option>
+            <option value="marketing">Marketing</option>
+        </select>
+
+        <button type="button" id="btn">Enviar Cadastro</button>
+    `;
+
+    document.body.appendChild(form);
+
+    // FOCUS NO PRIMEIRO CAMPO
+    document.getElementById("nome").focus();
+
+    // ---------- RELATÓRIO ----------
+    const relatorioDiv = document.createElement("div");
+    relatorioDiv.id = "relatorio";
+    document.body.appendChild(relatorioDiv);
+
+    // ---------- EVENTO DO BOTÃO ----------
+    document.getElementById("btn").addEventListener("click", function () {
+        const nome = document.getElementById("nome").value.trim();
+        const responsavel = document.getElementById("responsavel").value.trim();
+        const descricao = document.getElementById("descricao").value.trim();
+        const categoria = document.getElementById("categoria").value;
+
+        if (!nome || !responsavel || !descricao || !categoria) {
+            alert("Por favor, preencha todos os campos obrigatórios.");
+            return;
+        }
+
+        // IMAGENS BASEADAS NA CATEGORIA
+        const imagens = {
+            tecnologia: "images/marketing.png",
+            design: "images/design.png",
+            marketing: "images/tecnologia.png"
+        };
+
+        relatorioDiv.style.display = "block";
+        relatorioDiv.innerHTML = `
+            <h2>Relatório do Cadastro</h2>
+            <p><strong>Nome do Projeto:</strong> ${nome}</p>
+            <p><strong>Responsável:</strong> ${responsavel}</p>
+            <p><strong>Descrição:</strong> ${descricao}</p>
+            <p><strong>Categoria:</strong> ${categoria}</p>
+
+            <img src="${imagens[categoria]}" alt="Imagem da categoria selecionada">
+        `;
+    });
+</script>
+
+</body>
+</html>

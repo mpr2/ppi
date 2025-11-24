@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cadastro - AprendaJá</title>
+
+    <style>
+        body {
+            font-size: 1.3em;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        form {
+            background-color: #fdb950;
+            border: 3px solid #f5b027;
+            border-radius: 12px;
+            width: 420px;
+            margin: 30px auto;
+            padding: 25px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-top: 12px;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        select {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #b37c00;
+            border-radius: 5px;
+        }
+
+        input[type="submit"],
+        input[type="reset"] {
+            color: #fff;
+            cursor: pointer;
+            font-weight: bold;
+            background-color: #f5b027;
+            padding: 10px 18px;
+            border: none;
+            border-radius: 5px;
+            margin: 5px;
+        }
+
+        input[type="submit"]:hover,
+        input[type="reset"]:hover {
+            background-color: #e0a322;
+        }
+    </style>
+</head>
+
+<body>
+
+<h1>Cadastro - AprendaJá</h1>
+
+<form action="perfil.html" method="post">
+
+    <label for="matricula">Número de Matrícula:</label>
+    <input 
+        type="text" 
+        id="matricula" 
+        name="matricula"
+        placeholder="Digite o número de matrícula"
+        required
+    />
+
+    <button 
+        type="button"
+        onclick="matricula_usuario(document.getElementById('matricula').value)"
+    >
+        Verificar
+    </button>
+
+    <hr>
+
+    <img 
+        id="foto-aluno" 
+        src="" 
+        alt="Foto do discente" 
+        style="width: 250px; display: none; cursor:pointer;"
+    >
+
+    <p id="erro" style="color: black;"></p>
+
+    <script>
+        // Lista de todas as fotos
+        const listaFotos = [
+            "fotos/gustavo.jpg",
+            "fotos/joao.jpg",
+            "fotos/gullit.jpg",
+            "fotos/paulo.jpg",
+            "fotos/tiago.jpg",
+            "fotos/marcelo.jpg"
+        ];
+
+        let indiceAtual = 0; // controla a foto atual ao clicar na imagem
+
+        function matricula_usuario(status) {
+
+            document.getElementById("erro").innerHTML = "";
+            const img = document.getElementById("foto-aluno");
+
+            switch (status.toUpperCase()) {
+
+                case '12111BCC025':
+                    img.src = listaFotos[0];
+                    indiceAtual = 0;
+                    img.style.display = "block";
+                    break;
+
+                case '12111BCC057':
+                    img.src = listaFotos[1];
+                    indiceAtual = 1;
+                    img.style.display = "block";
+                    break;
+
+                case '12011BCC034':
+                    img.src = listaFotos[2];
+                    indiceAtual = 2;
+                    img.style.display = "block";
+                    break;
+
+                case '11921BCC013':
+                    img.src = listaFotos[3];
+                    indiceAtual = 3;
+                    img.style.display = "block";
+                    break;
+
+                case '12011BCC040':
+                    img.src = listaFotos[4];
+                    indiceAtual = 4;
+                    img.style.display = "block";
+                    break;
+
+                case '12021BCC012':
+                    img.src = listaFotos[5];
+                    indiceAtual = 5;
+                    img.style.display = "block";
+                    break;
+
+                default:
+                    img.style.display = "none";
+                    document.getElementById("erro").innerHTML = "Matrícula não foi encontrada!";
+            }
+        }
+
+        // EVENTO DE CLICK NA IMAGEM PARA MOSTRAR A PRÓXIMA FOTO
+        document.getElementById("foto-aluno").addEventListener("click", function () {
+            indiceAtual = (indiceAtual + 1) % listaFotos.length;
+            this.src = listaFotos[indiceAtual];
+        });
+    </script>
+
+    <div class="tipo-cadastro">
+        <label for="categoria_usuario">Tipo de Cadastro:</label>
+        <select id="categoria_usuario" name="categoria_usuario">
+            <option value="" disabled selected>Selecione modo de acesso</option>
+            <option value="aluno">Aluno</option>
+            <option value="instrutor">Instrutor</option>
+        </select>
+    </div>
+
+    <label for="nome">Nome:</label>
+    <input type="text" id="nome" name="nome" required />
+
+    <label for="email">E-mail:</label>
+    <input type="email" id="email" name="email" required />
+
+    <label for="senha">Senha:</label>
+    <input type="password" id="senha" name="senha" />
+
+    <label for="categoria">Categoria Principal:</label>
+    <select id="categoria" name="categoria_empresa">
+        <option value="" disabled selected>Selecione uma categoria</option>
+        <option value="tecnologia">Tecnologia</option>
+        <option value="negocios">Negócios</option>
+        <option value="design">Design</option>
+        <option value="fotografia">Fotografia</option>
+        <option value="marketing">Marketing</option>
+    </select>
+
+    <label>
+        <input type="checkbox" name="aceito_termos" required />
+        Aceito os termos de uso da Empresa
+    </label>
+
+    <div class="botoes">
+        <input type="submit" value="Enviar Cadastro" />
+        <input type="reset" value="Limpar Campos" />
+    </div>
+
+</form>
+
+</body>
+</html>
