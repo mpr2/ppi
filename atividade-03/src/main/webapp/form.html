@@ -33,12 +33,25 @@
         input[type="text"],
         input[type="email"],
         input[type="password"],
+        textarea,
         select {
             width: 100%;
             padding: 8px;
             margin-top: 5px;
             border: 1px solid #b37c00;
             border-radius: 5px;
+        }
+
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        input[type="password"]:focus,
+        textarea:focus,
+        select:focus {
+            background: #fff4d6;
+        }
+
+        form textarea {
+            height: 10em;
         }
 
         button {
@@ -77,25 +90,25 @@
 
 <body>
 
-<h1>Cadastro de Projeto</h1>
+<h1>Cadastro de Curso</h1>
 
 <script>
     // ---------- CRIAÇÃO DO FORMULÁRIO ----------
     const form = document.createElement("form");
 
     form.innerHTML = `
-        <label>Nome do Projeto:</label>
-        <input type="text" id="nome" required>
+        <label for="titulo">Título do Curso:</label>
+        <input type="text" name="titulo" id="titulo" required>
 
-        <label>Responsável:</label>
-        <input type="text" id="responsavel" required>
+        <label for="instrutor">Instrutor:</label>
+        <input type="text" name="instrutor" id="instrutor" required>
 
-        <label>Descrição:</label>
-        <input type="text" id="descricao" required>
+        <label for="descricao">Descrição:</label>
+        <textarea type="text" name="descricao" id="descricao" required></textarea>
 
-        <label>Categoria:</label>
-        <select id="categoria" required>
-            <option value="">Selecione...</option>
+        <label for="categoria">Categoria:</label>
+        <select name="categoria" id="categoria" required>
+            <option value="" disabled selected>Selecione...</option>
             <option value="tecnologia">Tecnologia</option>
             <option value="design">Design</option>
             <option value="marketing">Marketing</option>
@@ -107,7 +120,7 @@
     document.body.appendChild(form);
 
     // FOCUS NO PRIMEIRO CAMPO
-    document.getElementById("nome").focus();
+    document.getElementById("titulo").focus();
 
     // ---------- RELATÓRIO ----------
     const relatorioDiv = document.createElement("div");
@@ -116,28 +129,30 @@
 
     // ---------- EVENTO DO BOTÃO ----------
     document.getElementById("btn").addEventListener("click", function () {
-        const nome = document.getElementById("nome").value.trim();
-        const responsavel = document.getElementById("responsavel").value.trim();
-        const descricao = document.getElementById("descricao").value.trim();
-        const categoria = document.getElementById("categoria").value;
+        const formulario = document.forms[0];
+        
+        const titulo = formulario.titulo.value.trim();
+        const instrutor = formulario.instrutor.value.trim();
+        const descricao = formulario.descricao.value.trim();
+        const categoria = formulario.categoria.value;
 
-        if (!nome || !responsavel || !descricao || !categoria) {
+        if (!titulo || !instrutor || !descricao || !categoria) {
             alert("Por favor, preencha todos os campos obrigatórios.");
             return;
         }
 
         // IMAGENS BASEADAS NA CATEGORIA
         const imagens = {
-            tecnologia: "images/marketing.png",
+            tecnologia: "images/tecnologia.png",
             design: "images/design.png",
-            marketing: "images/tecnologia.png"
+            marketing: "images/marketing.png"
         };
 
         relatorioDiv.style.display = "block";
         relatorioDiv.innerHTML = `
             <h2>Relatório do Cadastro</h2>
-            <p><strong>Nome do Projeto:</strong> ${nome}</p>
-            <p><strong>Responsável:</strong> ${responsavel}</p>
+            <p><strong>Título do Curso:</strong> ${titulo}</p>
+            <p><strong>Instrutor:</strong> ${instrutor}</p>
             <p><strong>Descrição:</strong> ${descricao}</p>
             <p><strong>Categoria:</strong> ${categoria}</p>
 
