@@ -46,4 +46,18 @@ public class User {
     public void setCreatedTime(Timestamp createdTime) {
         this.createdTime = createdTime;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("User{");
+        sb.append("id=").append(id);
+        sb.append(", username=").append(username);
+        sb.append(", email=").append(email);
+        sb.append(", passwordHash=").append(passwordHash);
+        sb.append(", name=").append(name);
+        sb.append(", createdTime=").append(createdTime);
+        sb.append('}');
+        return sb.toString();
+    }
 }

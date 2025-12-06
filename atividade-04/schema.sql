@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS `atividade04`.`user` (
   UNIQUE INDEX `user_id_UNIQUE` (`user_id` ASC) VISIBLE,
   UNIQUE INDEX `username_UNIQUE` (`username` ASC) VISIBLE)
 ENGINE = InnoDB
-AUTO_INCREMENT = 5
+AUTO_INCREMENT = 1
 DEFAULT CHARACTER SET = utf8mb4;
 
 
@@ -48,8 +48,8 @@ CREATE TABLE IF NOT EXISTS `atividade04`.`course` (
   `instructor_id` INT NOT NULL,
   `title` VARCHAR(255) NOT NULL,
   `description` TEXT NULL DEFAULT NULL,
-  `created_time` TIMESTAMP NOT NULL,
-  `updated_time` TIMESTAMP NOT NULL,
+  `created_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`course_id`),
   UNIQUE INDEX `course_id_UNIQUE` (`course_id` ASC) VISIBLE,
   INDEX `fk_course_user_idx` (`instructor_id` ASC) VISIBLE,
@@ -68,7 +68,7 @@ DROP TABLE IF EXISTS `atividade04`.`enrollment` ;
 CREATE TABLE IF NOT EXISTS `atividade04`.`enrollment` (
   `course_id` INT NOT NULL,
   `user_id` INT NOT NULL,
-  `enrolled_time` TIMESTAMP NOT NULL,
+  `enrolled_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`course_id`, `user_id`),
   INDEX `fk_course_has_user_user1_idx` (`user_id` ASC) VISIBLE,
   INDEX `fk_course_has_user_course1_idx` (`course_id` ASC) VISIBLE,

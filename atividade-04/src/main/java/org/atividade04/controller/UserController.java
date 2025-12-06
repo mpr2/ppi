@@ -1,4 +1,4 @@
-package org.atividade04;
+package org.atividade04.controller;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -6,7 +6,6 @@ import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 
 import org.atividade04.dao.UserDao;
-import org.atividade04.dao.UserDaoImpl;
 import org.atividade04.model.User;
 import org.mindrot.jbcrypt.BCrypt;
 
@@ -24,14 +23,7 @@ public class UserController extends HttpServlet {
     @Override
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
-        /*
-        try {
-            this.userDao = new UserDaoImpl();
-        } catch (NamingException e) {
-            throw new ServletException("Erro ao inicializar UserDao. Verifique a configuração de DataSource da aplicação", e);
-        }
-        */
-       this.userDao = new UserDaoImpl();
+        this.userDao = new UserDao();
     }
 
     @Override
