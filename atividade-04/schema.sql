@@ -55,7 +55,8 @@ CREATE TABLE IF NOT EXISTS `atividade04`.`course` (
   INDEX `fk_course_user_idx` (`instructor_id` ASC) VISIBLE,
   CONSTRAINT `fk_course_user`
     FOREIGN KEY (`instructor_id`)
-    REFERENCES `atividade04`.`user` (`user_id`))
+    REFERENCES `atividade04`.`user` (`user_id`)
+    ON DELETE CASCADE ON UPDATE CASCADE)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4;
 
@@ -74,10 +75,12 @@ CREATE TABLE IF NOT EXISTS `atividade04`.`enrollment` (
   INDEX `fk_course_has_user_course1_idx` (`course_id` ASC) VISIBLE,
   CONSTRAINT `fk_course_has_user_course1`
     FOREIGN KEY (`course_id`)
-    REFERENCES `atividade04`.`course` (`course_id`),
+    REFERENCES `atividade04`.`course` (`course_id`)
+    ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_course_has_user_user1`
     FOREIGN KEY (`user_id`)
-    REFERENCES `atividade04`.`user` (`user_id`))
+    REFERENCES `atividade04`.`user` (`user_id`)
+    ON DELETE CASCADE ON UPDATE CASCADE)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4;
 
@@ -97,7 +100,8 @@ CREATE TABLE IF NOT EXISTS `atividade04`.`lesson` (
   INDEX `fk_lesson_course1_idx` (`course_id` ASC) VISIBLE,
   CONSTRAINT `fk_lesson_course1`
     FOREIGN KEY (`course_id`)
-    REFERENCES `atividade04`.`course` (`course_id`))
+    REFERENCES `atividade04`.`course` (`course_id`)
+    ON DELETE CASCADE ON UPDATE CASCADE)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4;
 

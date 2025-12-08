@@ -55,6 +55,22 @@ public class CourseDao {
         return null;
     }
 
+    public List<Course> findByInstructorId(int id) throws SQLException {
+        String sql = "SELECT * FROM course WHERE instructor_id = ?";
+
+        try (Connection conn = ConnectionFactory.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+            List<Course> courses = new ArrayList<>();
+            while (rs.next()) {
+                Course course = getCourseFromResultSet(rs);
+                courses.add(course);
+            }
+            return courses;
+        }
+    }
+
     public boolean update(Course course) throws SQLException {
         String sql = "UPDATE course SET instructor_id=?, title=?, description=?, updated_time=? WHERE course_id = ?";
 
