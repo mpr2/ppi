@@ -7,6 +7,7 @@ public class Course {
     private int instructorId;
     private String title;
     private String description;
+    private String categoryId;
     private Timestamp createdTime;
     private Timestamp updatedTime;
 
@@ -34,6 +35,12 @@ public class Course {
     public void setDescription(String description) {
         this.description = description;
     }
+    public String getCategoryId() {
+        return categoryId;
+    }
+    public void setCategoryId(String categoryId) {
+        this.categoryId = categoryId;
+    }
     public Timestamp getCreatedTime() {
         return createdTime;
     }
@@ -55,6 +62,7 @@ public class Course {
         sb.append(", instructorId=").append(instructorId);
         sb.append(", title=").append(title);
         sb.append(", description=").append(description);
+        sb.append(", categoryId=").append(categoryId);
         sb.append(", createdTime=").append(createdTime);
         sb.append(", updatedTime=").append(updatedTime);
         sb.append('}');

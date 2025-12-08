@@ -16,11 +16,13 @@ public class CrudLesson {
         CourseDao courseDao = new CourseDao();
         LessonDao lessonDao = new LessonDao();
 
+        // buscando curso de Maria para usar de base para criar as aulas
         User maria = userDao.findByName("Maria Souza");
         Course mariaCourse = courseDao.findByInstructorId(maria.getId()).get(0);
 
         System.out.println("=== Removendo aulas de Maria ===\n");
 
+        // buscando aulas do curso de maria e removendo uma a uma para reinicializar a tabela
         List<Lesson> lessonList = lessonDao.findByCourseId(mariaCourse.getId());
         for (Lesson lesson : lessonList) {
             lessonDao.delete(lesson.getId());
@@ -67,6 +69,8 @@ public class CrudLesson {
         // Atualizar aula
         // -----------------------------
         System.out.println("=== atualizando aula (mudando conteúdo) ===");
+
+        // buscando primeira aula
         Lesson lesson = lessons.get(0);
 
         lesson.setContent("Novo conteúdo.");
@@ -83,6 +87,8 @@ public class CrudLesson {
         // Remover aula
         // -----------------------------
         System.out.println("=== removendo aula ===");
+
+        // buscando segunda aula
         lesson = lessons.get(1);
 
         boolean deleted = lessonDao.delete(lesson.getId());

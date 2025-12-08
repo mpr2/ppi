@@ -48,14 +48,20 @@ CREATE TABLE IF NOT EXISTS `atividade04`.`course` (
   `instructor_id` INT NOT NULL,
   `title` VARCHAR(255) NOT NULL,
   `description` TEXT NULL DEFAULT NULL,
+  `category_id` VARCHAR(50) NULL DEFAULT NULL,
   `created_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`course_id`),
   UNIQUE INDEX `course_id_UNIQUE` (`course_id` ASC) VISIBLE,
   INDEX `fk_course_user_idx` (`instructor_id` ASC) VISIBLE,
+  INDEX `fk_course_category_idx` (`category_id` ASC) VISIBLE,
   CONSTRAINT `fk_course_user`
     FOREIGN KEY (`instructor_id`)
     REFERENCES `atividade04`.`user` (`user_id`)
+    ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_course_category`
+    FOREIGN KEY (`category_id`)
+    REFERENCES `atividade04`.`category` (`category_id`)
     ON DELETE CASCADE ON UPDATE CASCADE)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4;
@@ -102,6 +108,20 @@ CREATE TABLE IF NOT EXISTS `atividade04`.`lesson` (
     FOREIGN KEY (`course_id`)
     REFERENCES `atividade04`.`course` (`course_id`)
     ON DELETE CASCADE ON UPDATE CASCADE)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4;
+
+
+-- -----------------------------------------------------
+-- Table `atividade04`.`category`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `atividade04`.`category` ;
+
+CREATE TABLE IF NOT EXISTS `atividade04`.`category` (
+  `category_id` VARCHAR(50) NOT NULL,
+  `name` VARCHAR(255) NOT NULL,
+  `description` TEXT NOT NULL,
+  PRIMARY KEY (`category_id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4;
 

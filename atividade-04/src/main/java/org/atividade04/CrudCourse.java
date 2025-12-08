@@ -15,6 +15,7 @@ public class CrudCourse {
 
         System.out.println("=== Removendo cursos ===\n");
 
+        // busca todos os cursos e remove um por um para reinicializar a tabela
         List<Course> courseList = courseDao.findAll();
         for (Course course : courseList) {
             courseDao.delete(course.getId());
@@ -22,6 +23,7 @@ public class CrudCourse {
 
         System.out.println("=== Criando cursos ===");
 
+        // usuários para usar como instrutores dos cursos
         User maria = userDao.findByName("Maria Souza");
         User joao = userDao.findByName("Joao Silva");
 
@@ -29,11 +31,13 @@ public class CrudCourse {
         c1.setInstructorId(maria.getId());
         c1.setTitle("Curso de Maria");
         c1.setDescription("Descrição do Curso de Maria.");
+        c1.setCategoryId("TECH");
 
         Course c2 = new Course();
         c2.setInstructorId(joao.getId());
         c2.setTitle("Curso de João");
         c2.setDescription("Descrição do Curso de João.");
+        c2.setCategoryId("MKT");
 
         courseDao.create(c1);
         courseDao.create(c2);
@@ -62,6 +66,8 @@ public class CrudCourse {
         // Atualizar curso
         // -----------------------------
         System.out.println("=== atualizando curso de Maria Souza (mudando título) ===");
+
+        // buscando o curso de maria
         List<Course> mariaCourses = courseDao.findByInstructorId(maria.getId());
         Course mariaCourse = mariaCourses.get(0);
 
@@ -79,6 +85,8 @@ public class CrudCourse {
         // Remover curso
         // -----------------------------
         System.out.println("=== removendo curso de João Silva ===");
+
+        // buscando curso de joão
         List<Course> joaoCourses = courseDao.findByInstructorId(joao.getId());
         Course joaoCourse = joaoCourses.get(0);
 

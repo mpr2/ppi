@@ -8,6 +8,9 @@ public class Main {
             System.out.println("===== TABELA USUÁRIOS =====\n\n");
             CrudUser.crudUser();
 
+            System.out.println("\n\n\n\n===== TABELA CATEGORIAS =====\n\n");
+            CrudCategory.crudCategory();
+
             System.out.println("\n\n\n\n===== TABELA CURSOS =====\n\n");
             CrudCourse.crudCourse();
 

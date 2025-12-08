@@ -12,6 +12,7 @@ public class CrudUser {
 
         System.out.println("=== Removendo usuários ===\n");
 
+        // Busca todos os usuários e remove um por um para reinicializar a tabela
         List<User> userList = userDao.findAll();
         for (User user : userList) {
             userDao.delete(user.getId());
@@ -101,6 +102,7 @@ public class CrudUser {
             System.out.println(u);
         }
 
+        // recriando joão
         userDao.create(u1);
     }
 }
