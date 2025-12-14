@@ -1,7 +1,6 @@
 package org.atividade05.controller;
 
 import java.io.IOException;
-
 import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
@@ -51,16 +50,17 @@ public class CourseController extends HttpServlet {
                 course.setInstructorId(Integer.parseInt(req.getParameter("instructor_id")));
                 course.setTitle(req.getParameter("title"));
                 course.setDescription(req.getParameter("description"));
+                course.setCategoryId(req.getParameter("category_id"));
                 courseDao.create(course);
-                req.setAttribute("message", "Usuário criado com sucesso.");
+                req.setAttribute("message", "Curso criado com sucesso.");
             } catch(SQLIntegrityConstraintViolationException e) {
-                req.setAttribute("message", "Instrutor não existe. Tente novamente.");
+                req.setAttribute("message", "Instrutor ou categoria não existe. Tente novamente.");
             } catch (SQLException e) {
-                throw new ServletException("Erro ao criar usuário", e);
+                throw new ServletException("Erro ao criar curso", e);
             }
         }
 
-        else if (req.getParameter("change_description") != null) {
+        else if (req.getParameter("find") != null) {
             try {
                 int id = Integer.parseInt(req.getParameter("id"));
                 Course course = courseDao.findById(id);
@@ -68,12 +68,30 @@ public class CourseController extends HttpServlet {
                     req.setAttribute("message", "Curso não encontrado.");
                 }
                 else {
-                    course.setDescription(req.getParameter("new_description"));
-                    courseDao.update(course);
-                    req.setAttribute("message", "Descrição alterada com sucesso.");
+                    req.setAttribute("message", "Curso encontrado.");
+                    req.setAttribute("course", course);
                 }
             } catch (SQLException e) {
-                throw new ServletException("Erro ao alterar Descrição.", e);
+                throw new ServletException("Erro ao consultar curso.", e);
+            }
+        }
+
+        else if (req.getParameter("update") != null) {
+            try {
+                int id = Integer.parseInt(req.getParameter("id"));
+                Course course = courseDao.findById(id);
+                if (course == null) {
+                    req.setAttribute("message", "Curso não encontrado.");
+                }
+                else {
+                    course.setTitle(req.getParameter("title"));
+                    course.setDescription(req.getParameter("description"));
+                    course.setCategoryId(req.getParameter("category_id"));
+                    courseDao.update(course);
+                    req.setAttribute("message", "Dados alterados com sucesso.");
+                }
+            } catch (SQLException e) {
+                throw new ServletException("Erro ao alterar dados.", e);
             }
         }
 

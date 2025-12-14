@@ -55,6 +55,24 @@ public class UserController extends HttpServlet {
             }
         }
 
+        else if (req.getParameter("find") != null) {
+            try {
+                int id = Integer.parseInt(req.getParameter("id"));
+                User user = userDao.findById(id);
+                if (user == null) {
+                    req.setAttribute("message", "Usuário não encontrado.");
+                }
+                else {
+                    req.setAttribute("message", "Usuário encontrado.");
+                    req.setAttribute("user", user);
+                }
+            } catch (SQLException e) {
+                throw new ServletException("Erro ao consultar usuário.", e);
+            } catch (NumberFormatException e) {
+                req.setAttribute("message", "ID inválido. Tente novamente.");
+            }
+        }
+
         else if (req.getParameter("remove") != null) {
             try {
                 int id = Integer.parseInt(req.getParameter("id"));
@@ -72,7 +90,7 @@ public class UserController extends HttpServlet {
             }
         }
 
-        else if (req.getParameter("change_password") != null) {
+        else if (req.getParameter("update") != null) {
             try {
                 int id = Integer.parseInt(req.getParameter("id"));
                 User user = userDao.findById(id);
@@ -83,12 +101,15 @@ public class UserController extends HttpServlet {
                     req.setAttribute("message", "Senha incorreta.");
                 }
                 else {
+                    user.setUsername(req.getParameter("username"));
+                    user.setEmail(req.getParameter("email"));
                     user.setPasswordHash(BCrypt.hashpw(req.getParameter("new_password"), BCrypt.gensalt()));
+                    user.setName(req.getParameter("name"));
                     userDao.update(user);
-                    req.setAttribute("message", "Senha alterada com sucesso.");
+                    req.setAttribute("message", "Dados alterados com sucesso.");
                 }
             } catch (SQLException e) {
-                throw new ServletException("Erro ao alterar senha.", e);
+                throw new ServletException("Erro ao alterar dados.", e);
             } catch (NumberFormatException e) {
                 req.setAttribute("message", "ID inválido. Tente novamente.");
             }

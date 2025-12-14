@@ -9,7 +9,7 @@ public class ConnectionFactory {
     private static final String SERVER_NAME = "localhost";
     private static final String USER = "root";
     private static final String PASSWORD = "pass";
-    private static final String DATABASE_NAME = "atividade04";
+    private static final String DATABASE_NAME = "atividade05";
     private static MysqlConnectionPoolDataSource dataSource;
 
     public static Connection getConnection() throws SQLException {

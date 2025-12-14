@@ -7,106 +7,12 @@
     <meta charset="UTF-8">
     <title>Aulas</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <style>
-        body {
-            font-family: Arial, Helvetica, sans-serif;
-            background-color: #f7f7f7;
-            margin: 0;
-            padding: 20px;
-        }
-
-        h1 {
-            border-bottom: 4px solid #fdb950;
-            padding-bottom: 8px;
-            color: #333;
-        }
-
-        .container {
-            max-width: 1000px;
-            margin: auto;
-        }
-
-        .card {
-            background: #ffffff;
-            border-radius: 8px;
-            padding: 20px;
-            margin-bottom: 25px;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-        }
-
-        .card h2, .card h3 {
-            margin-top: 0;
-            color: #fdb950;
-        }
-
-        label {
-            display: block;
-            margin-top: 10px;
-            font-weight: bold;
-        }
-
-        input, textarea {
-            width: 100%;
-            padding: 8px;
-            margin-top: 4px;
-            box-sizing: border-box;
-        }
-
-        textarea {
-            resize: vertical;
-        }
-
-        button, .link-btn {
-            margin-top: 15px;
-            padding: 10px 16px;
-            background-color: #fdb950;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: bold;
-            text-decoration: none;
-            color: black;
-            display: inline-block;
-        }
-
-        button:hover, .link-btn:hover {
-            opacity: 0.9;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 15px;
-        }
-
-        th, td {
-            border: 1px solid #ddd;
-            padding: 10px;
-        }
-
-        th {
-            background-color: #fdb950;
-        }
-
-        .message {
-            padding: 12px;
-            background-color: #fff3d6;
-            border-left: 5px solid #fdb950;
-            margin-bottom: 20px;
-        }
-
-        .requirements {
-            background-color: #fff9ec;
-            padding: 15px;
-            border-left: 4px solid #fdb950;
-            margin-bottom: 15px;
-        }
-    </style>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
 <div class="container">
+    <jsp:include page="header.jsp" />
 
     <h1>Gerenciamento de Aulas</h1>
 
@@ -172,6 +78,16 @@
                     </tr>
                 </c:forEach>
             </table>
+
+            <c:if test="${lesson != null}">
+                <h2>Aula encontrada:</h2>
+                <ul>
+                    <li>ID: ${lesson.id}</li>
+                    <li>ID do Curso: ${lesson.courseId}</li>
+                    <li>Título: ${lesson.title}</li>
+                    <li>Conteúdo: ${lesson.content}</li>
+                </ul>
+            </c:if>
         </div>
 
         <!-- CRIAR AULA -->
@@ -201,21 +117,39 @@
             </form>
         </div>
 
-        <!-- ALTERAR CONTEÚDO -->
+        <!-- CONSULTAR AULA -->
         <div class="card">
-            <h3>Alterar Conteúdo da Aula</h3>
+            <h3>Consultar Aula</h3>
 
             <form action="lesson" method="post">
-                <input type="hidden" name="change_content">
+                <input type="hidden" name="find">
                 <input type="hidden" name="course_id" value="${course.id}">
 
-                <label>ID da Aula</label>
+                <label>ID da aula</label>
                 <input type="number" name="id" required>
 
-                <label>Novo Conteúdo</label>
-                <textarea name="new_content" rows="4" required></textarea>
+                <button type="submit">Consultar Aula</button>
+            </form>
+        </div>
 
-                <button type="submit">Alterar Conteúdo</button>
+        <!-- ALTERAR AULA -->
+        <div class="card">
+            <h3>Alterar Aula</h3>
+
+            <form action="lesson" method="post">
+                <input type="hidden" name="update">
+                <input type="hidden" name="course_id" value="${course.id}">
+                
+                <label>ID da Aula</label>
+                <input type="number" name="id" required>
+                
+                <label>Novo Título</label>
+                <input type="text" name="title" required>
+                
+                <label>Novo Conteúdo</label>
+                <textarea name="content" rows="4" required></textarea>
+                
+                <button type="submit">Alterar Aula</button>
             </form>
         </div>
 

@@ -75,7 +75,7 @@ public class LessonController extends HttpServlet {
             }
         }
 
-        else if (req.getParameter("change_content") != null) {
+        else if (req.getParameter("find") != null) {
             try {
                 int id = Integer.parseInt(req.getParameter("id"));
                 Lesson lesson = lessonDao.findById(id);
@@ -83,12 +83,29 @@ public class LessonController extends HttpServlet {
                     req.setAttribute("message", "Aula não encontrada.");
                 }
                 else {
-                    lesson.setContent(req.getParameter("new_content"));
-                    lessonDao.update(lesson);
-                    req.setAttribute("message", "Conteúdo alterado com sucesso.");
+                    req.setAttribute("message", "Aula encontrada.");
+                    req.setAttribute("lesson", lesson);
                 }
             } catch (SQLException e) {
-                throw new ServletException("Erro ao alterar o conteúdo.", e);
+                throw new ServletException("Erro ao consultar aula.", e);
+            }
+        }
+
+        else if (req.getParameter("update") != null) {
+            try {
+                int id = Integer.parseInt(req.getParameter("id"));
+                Lesson lesson = lessonDao.findById(id);
+                if (lesson == null) {
+                    req.setAttribute("message", "Aula não encontrada.");
+                }
+                else {
+                    lesson.setTitle(req.getParameter("title"));
+                    lesson.setContent(req.getParameter("content"));
+                    lessonDao.update(lesson);
+                    req.setAttribute("message", "Dados alterados com sucesso.");
+                }
+            } catch (SQLException e) {
+                throw new ServletException("Erro ao alterar os dados.", e);
             }
         }
 

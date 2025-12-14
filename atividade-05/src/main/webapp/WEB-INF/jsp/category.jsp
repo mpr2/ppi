@@ -7,103 +7,12 @@
     <meta charset="UTF-8">
     <title>Categorias</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <style>
-        body {
-            font-family: Arial, Helvetica, sans-serif;
-            background-color: #f7f7f7;
-            margin: 0;
-            padding: 20px;
-        }
-
-        h1 {
-            border-bottom: 4px solid #fdb950;
-            padding-bottom: 8px;
-            color: #333;
-        }
-
-        .container {
-            max-width: 900px;
-            margin: auto;
-        }
-
-        .card {
-            background: #ffffff;
-            border-radius: 8px;
-            padding: 20px;
-            margin-bottom: 25px;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-        }
-
-        .card h2 {
-            margin-top: 0;
-            color: #fdb950;
-        }
-
-        label {
-            display: block;
-            margin-top: 10px;
-            font-weight: bold;
-        }
-
-        input, textarea {
-            width: 100%;
-            padding: 8px;
-            margin-top: 4px;
-            box-sizing: border-box;
-        }
-
-        textarea {
-            resize: vertical;
-        }
-
-        button {
-            margin-top: 15px;
-            padding: 10px 16px;
-            background-color: #fdb950;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: bold;
-        }
-
-        button:hover {
-            opacity: 0.9;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 15px;
-        }
-
-        th, td {
-            border: 1px solid #ddd;
-            padding: 10px;
-        }
-
-        th {
-            background-color: #fdb950;
-        }
-
-        .message {
-            padding: 12px;
-            background-color: #fff3d6;
-            border-left: 5px solid #fdb950;
-            margin-bottom: 20px;
-        }
-
-        .requirements {
-            background-color: #fff9ec;
-            padding: 15px;
-            border-left: 4px solid #fdb950;
-            margin-bottom: 15px;
-        }
-    </style>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
 <div class="container">
+<jsp:include page="header.jsp" />
 
     <h1>Gerenciamento de Categorias</h1>
 
@@ -129,6 +38,15 @@
                     </tr>
                 </c:forEach>
             </table>
+
+            <c:if test="${category != null}">
+                <h2>Categoria Encontrada:</h2>
+                <ul>
+                    <li>ID: ${category.id}</li>
+                    <li>Nome: ${category.name}</li>
+                    <li>Descrição: ${category.description}</li>
+                </ul>
+            </c:if>
         </div>
     </c:if>
 
@@ -157,6 +75,20 @@
             <textarea name="description" rows="3"></textarea>
 
             <button type="submit">Cadastrar Categoria</button>
+        </form>
+    </div>
+
+    <!-- CONSULTA -->
+    <div class="card">
+        <h2>Consultar Categoria</h2>
+
+        <form action="category" method="post">
+            <input type="hidden" name="find">
+
+            <label>ID da Categoria</label>
+            <input type="text" name="id" required>
+
+            <button type="submit">Consultar Categoria</button>
         </form>
     </div>
 

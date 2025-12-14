@@ -62,6 +62,23 @@ public class CategoryController extends HttpServlet {
             }
         }
 
+        // -------- READ --------
+        else if (req.getParameter("find") != null) {
+            try {
+                String id = req.getParameter("id");
+                Category category = categoryDao.findById(id);
+                if (category == null) {
+                    req.setAttribute("message", "Categoria não encontrada.");
+                }
+                else {
+                    req.setAttribute("message", "Categoria encontrada.");
+                    req.setAttribute("category", category);
+                }
+            } catch (SQLException e) {
+                throw new ServletException("Erro ao consultar categoria.", e);
+            }
+        }
+
         // -------- DELETE --------
         else if (req.getParameter("remove") != null) {
             try {

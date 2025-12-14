@@ -7,107 +7,12 @@
     <meta charset="UTF-8">
     <title>Cursos</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <style>
-        body {
-            font-family: Arial, Helvetica, sans-serif;
-            background-color: #f7f7f7;
-            margin: 0;
-            padding: 20px;
-        }
-
-        h1, h2 {
-            color: #333;
-        }
-
-        h1 {
-            border-bottom: 4px solid #fdb950;
-            padding-bottom: 8px;
-        }
-
-        .container {
-            max-width: 1000px;
-            margin: auto;
-        }
-
-        .card {
-            background: #ffffff;
-            border-radius: 8px;
-            padding: 20px;
-            margin-bottom: 25px;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-        }
-
-        .card h2 {
-            margin-top: 0;
-            color: #fdb950;
-        }
-
-        label {
-            display: block;
-            margin-top: 10px;
-            font-weight: bold;
-        }
-
-        input, textarea {
-            width: 100%;
-            padding: 8px;
-            margin-top: 4px;
-            box-sizing: border-box;
-        }
-
-        textarea {
-            resize: vertical;
-        }
-
-        button {
-            margin-top: 15px;
-            padding: 10px 16px;
-            background-color: #fdb950;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: bold;
-        }
-
-        button:hover {
-            opacity: 0.9;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 15px;
-        }
-
-        th, td {
-            border: 1px solid #ddd;
-            padding: 10px;
-            text-align: left;
-        }
-
-        th {
-            background-color: #fdb950;
-        }
-
-        .message {
-            padding: 12px;
-            background-color: #fff3d6;
-            border-left: 5px solid #fdb950;
-            margin-bottom: 20px;
-        }
-
-        .requirements {
-            background-color: #fff9ec;
-            padding: 15px;
-            border-left: 4px solid #fdb950;
-            margin-bottom: 15px;
-        }
-    </style>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
 <div class="container">
+    <jsp:include page="header.jsp" />
 
     <h1>Gerenciamento de Cursos</h1>
 
@@ -139,6 +44,19 @@
                     </tr>
                 </c:forEach>
             </table>
+
+            <c:if test="${course != null}">
+                <h2>Curso encontrado:</h2>
+                <ul>
+                    <li>ID: ${course.id}</li>
+                    <li>ID do instrutor: ${course.instructorId}</li>
+                    <li>Título: ${course.title}</li>
+                    <li>Descrição: ${course.description}</li>
+                    <li>ID da Categoria: ${course.categoryId}</li>
+                    <li>Data de criação: ${course.createdTime}</li>
+                    <li>Data de atualização: ${course.updatedTime}</li>
+                </ul>
+            </c:if>
         </div>
     </c:if>
 
@@ -173,20 +91,40 @@
         </form>
     </div>
 
-    <!-- ALTERAR DESCRIÇÃO -->
+    <!-- CONSULTA -->
     <div class="card">
-        <h2>Alterar Descrição do Curso</h2>
+        <h2>Consultar Curso</h2>
 
         <form action="course" method="post">
-            <input type="hidden" name="change_description">
+            <input type="hidden" name="find">
+
+            <label for="id">ID do Curso:</label>
+            <input type="number" name="id" required>
+
+            <button type="submit">Consultar Curso</button>
+        </form>
+    </div>
+
+    <!-- ALTERAR -->
+    <div class="card">
+        <h2>Alterar Curso</h2>
+
+        <form action="course" method="post">
+            <input type="hidden" name="update">
 
             <label>ID do Curso</label>
             <input type="number" name="id" required>
+    
+            <label>Novo título</label>
+            <input type="text" name="title" required>
 
             <label>Nova Descrição</label>
-            <textarea name="new_description" rows="4" required></textarea>
+            <textarea name="description" rows="4" required></textarea>
 
-            <button type="submit">Alterar Descrição</button>
+            <label>ID da Categoria</label>
+            <input type="text" name="category_id">
+
+            <button type="submit">Alterar Curso</button>
         </form>
     </div>
 
