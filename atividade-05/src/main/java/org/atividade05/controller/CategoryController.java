@@ -17,114 +17,131 @@ import jakarta.servlet.http.HttpServletResponse;
 
 @WebServlet("/category")
 public class CategoryController extends HttpServlet {
-    private CategoryDao categoryDao;
 
-    @Override
-    public void init(ServletConfig config) throws ServletException {
-        super.init(config);
-        this.categoryDao = new CategoryDao();
-    }
+	private CategoryDao categoryDao;
 
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp)
-            throws ServletException, IOException {
+	// ================= CICLO DE VIDA =================
 
-        try {
-            List<Category> categories = categoryDao.findAll();
-            req.setAttribute("categories", categories);
-        } catch (SQLException e) {
-            throw new ServletException("Erro ao buscar categorias no Banco de Dados.", e);
-        }
+	// INIT - chamado uma única vez quando o servlet é criado
+	@Override
+	public void init(ServletConfig config) throws ServletException {
+		super.init(config);
+		System.out.println("CategoryController inicializado.");
+		this.categoryDao = new CategoryDao();
+	}
 
-        req.getRequestDispatcher("/WEB-INF/jsp/category.jsp").forward(req, resp);
-    }
+	// SERVICE - chamado a cada requisição HTTP
+	@Override
+	public void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp)
-            throws ServletException, IOException {
+		System.out.println("Service chamado - Método HTTP: " + req.getMethod());
+		super.service(req, resp); // mantém doGet e doPost funcionando
+	}
 
-        // -------- CREATE --------
-        if (req.getParameter("create") != null) {
-            try {
-                Category category = new Category();
-                category.setId(req.getParameter("id"));
-                category.setName(req.getParameter("name"));
-                category.setDescription(req.getParameter("description"));
+	// DESTROY - chamado quando o servlet é finalizado
+	@Override
+	public void destroy() {
+		System.out.println("CategoryController destruído.");
+	}
 
-                categoryDao.create(category);
-                req.setAttribute("message", "Categoria criada com sucesso.");
-            }
-            catch (SQLIntegrityConstraintViolationException e) {
-                req.setAttribute("message", "ID já existe! Escolha outro.");
-            }
-            catch (SQLException e) {
-                throw new ServletException("Erro ao criar categoria", e);
-            }
-        }
+	// ================= GET =================
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        // -------- READ --------
-        else if (req.getParameter("find") != null) {
-            try {
-                String id = req.getParameter("id");
-                Category category = categoryDao.findById(id);
-                if (category == null) {
-                    req.setAttribute("message", "Categoria não encontrada.");
-                }
-                else {
-                    req.setAttribute("message", "Categoria encontrada.");
-                    req.setAttribute("category", category);
-                }
-            } catch (SQLException e) {
-                throw new ServletException("Erro ao consultar categoria.", e);
-            }
-        }
+		try {
+			List<Category> categories = categoryDao.findAll();
+			req.setAttribute("categories", categories);
+		} catch (SQLException e) {
+			throw new ServletException("Erro ao buscar categorias no Banco de Dados.", e);
+		}
 
-        // -------- DELETE --------
-        else if (req.getParameter("remove") != null) {
-            try {
-                String id = req.getParameter("id");
+		req.getRequestDispatcher("/WEB-INF/jsp/category.jsp").forward(req, resp);
+	}
 
-                boolean wasDeleted = categoryDao.delete(id);
+	// ================= POST =================
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-                if (!wasDeleted) {
-                    req.setAttribute("message", "Categoria não encontrada.");
-                } else {
-                    req.setAttribute("message", "Categoria removida com sucesso.");
-                }
-            } catch (SQLException e) {
-                throw new ServletException("Erro ao remover categoria", e);
-            }
-        }
+		// -------- CREATE --------
+		if (req.getParameter("create") != null) {
+			try {
+				Category category = new Category();
+				category.setId(req.getParameter("id"));
+				category.setName(req.getParameter("name"));
+				category.setDescription(req.getParameter("description"));
 
-        // -------- UPDATE --------
-        else if (req.getParameter("update") != null) {
-            try {
-                String id = req.getParameter("id");
-                Category category = categoryDao.findById(id);
+				categoryDao.create(category);
+				req.setAttribute("message", "Categoria criada com sucesso.");
+			} catch (SQLIntegrityConstraintViolationException e) {
+				req.setAttribute("message", "ID já existe! Escolha outro.");
+			} catch (SQLException e) {
+				throw new ServletException("Erro ao criar categoria", e);
+			}
+		}
 
-                if (category == null) {
-                    req.setAttribute("message", "Categoria não encontrada.");
-                } else {
-                    category.setName(req.getParameter("name"));
-                    category.setDescription(req.getParameter("description"));
+		// -------- READ --------
+		else if (req.getParameter("find") != null) {
+			try {
+				String id = req.getParameter("id");
+				Category category = categoryDao.findById(id);
 
-                    categoryDao.update(category);
-                    req.setAttribute("message", "Categoria atualizada com sucesso.");
-                }
+				if (category == null) {
+					req.setAttribute("message", "Categoria não encontrada.");
+				} else {
+					req.setAttribute("message", "Categoria encontrada.");
+					req.setAttribute("category", category);
+				}
+			} catch (SQLException e) {
+				throw new ServletException("Erro ao consultar categoria.", e);
+			}
+		}
 
-            } catch (SQLException e) {
-                throw new ServletException("Erro ao atualizar categoria", e);
-            }
-        }
+		// -------- DELETE --------
+		else if (req.getParameter("remove") != null) {
+			try {
+				String id = req.getParameter("id");
 
-        // Recarregar lista de categorias
-        try {
-            List<Category> categories = categoryDao.findAll();
-            req.setAttribute("categories", categories);
-        } catch (SQLException e) {
-            throw new ServletException("Erro ao buscar categorias no Banco de Dados.", e);
-        }
+				boolean wasDeleted = categoryDao.delete(id);
 
-        req.getRequestDispatcher("/WEB-INF/jsp/category.jsp").forward(req, resp);
-    }
+				if (!wasDeleted) {
+					req.setAttribute("message", "Categoria não encontrada.");
+				} else {
+					req.setAttribute("message", "Categoria removida com sucesso.");
+				}
+			} catch (SQLException e) {
+				throw new ServletException("Erro ao remover categoria", e);
+			}
+		}
+
+		// -------- UPDATE --------
+		else if (req.getParameter("update") != null) {
+			try {
+				String id = req.getParameter("id");
+				Category category = categoryDao.findById(id);
+
+				if (category == null) {
+					req.setAttribute("message", "Categoria não encontrada.");
+				} else {
+					category.setName(req.getParameter("name"));
+					category.setDescription(req.getParameter("description"));
+
+					categoryDao.update(category);
+					req.setAttribute("message", "Categoria atualizada com sucesso.");
+				}
+
+			} catch (SQLException e) {
+				throw new ServletException("Erro ao atualizar categoria", e);
+			}
+		}
+
+		// Recarregar lista de categorias
+		try {
+			List<Category> categories = categoryDao.findAll();
+			req.setAttribute("categories", categories);
+		} catch (SQLException e) {
+			throw new ServletException("Erro ao buscar categorias no Banco de Dados.", e);
+		}
+
+		req.getRequestDispatcher("/WEB-INF/jsp/category.jsp").forward(req, resp);
+	}
 }
