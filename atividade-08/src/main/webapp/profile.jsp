@@ -47,7 +47,9 @@
     <h2>Alterar Foto de Perfil</h2>
     <form method="post" action="profile.jsp?id=<%= id %>" enctype="multipart/form-data">
         Arquivo: <input type="file" name="profile_pic">
-        <button type="submit">Enviar</button>
+        <button type="submit">Enviar</button> <br>
+        <small>Extensões permitidas: jpg, png</small> <br>
+        <small>Tamanho máximo: 1 MB</small>
     </form>
     <%
             }
@@ -59,8 +61,7 @@
         }
     %>
 
-    <h1></h1>
-
+    <jsp:include page="WEB-INF/jsp/footer.jsp" />
 
 </div>
 </body>

@@ -37,9 +37,9 @@
                 <c:forEach items="${users}" var="user">
                     <tr>
                         <td>${user.id}</td>
-                        <td>${user.username}</td>
+                        <td><a href="profile.jsp?id=${user.id}">${user.username}</a></td>
                         <td>${user.email}</td>
-                            <td>${user.passwordHash}</td>
+                        <td>${user.passwordHash}</td>
                         <td>${user.name}</td>
                         <td>${user.createdTime}</td>
                     </tr>
@@ -148,6 +148,7 @@
             <button type="submit">Remover Usuário</button>
         </form>
     </div>
+    <jsp:include page="footer.jsp" />
 
 </div>
 </body>

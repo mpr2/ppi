@@ -53,7 +53,9 @@
     <h2>Enviar Notas de aula</h2>
     <form method="post" action="lesson.jsp?id=<%= id %>" enctype="multipart/form-data">
         Arquivo: <input type="file" name="notes_file">
-        <button type="submit">Enviar</button>
+        <button type="submit">Enviar</button> <br>
+        <small>Extensões permitidas: pdf</small> <br>
+        <small>Tamanho máximo: 2 MB</small>
     </form>
     <%
             }
@@ -65,8 +67,7 @@
         }
     %>
 
-    <h1></h1>
-
+    <jsp:include page="WEB-INF/jsp/footer.jsp" />
 
 </div>
 </body>

@@ -141,6 +141,7 @@
             <button type="submit">Remover Curso</button>
         </form>
     </div>
+    <jsp:include page="footer.jsp" />
 
 </div>
 </body>

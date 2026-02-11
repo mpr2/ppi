@@ -69,12 +69,14 @@
                     <th>ID</th>
                     <th>Título</th>
                     <th>Conteúdo</th>
+                    <th>Ação</th>
                 </tr>
                 <c:forEach items="${lessons}" var="lesson">
                     <tr>
                         <td>${lesson.id}</td>
                         <td>${lesson.title}</td>
                         <td>${lesson.content}</td>
+                        <td><a href="lesson.jsp?id=${lesson.id}">Accessar aula</a></td>
                     </tr>
                 </c:forEach>
             </table>
@@ -168,6 +170,7 @@
             </form>
         </div>
     </c:if>
+    <jsp:include page="footer.jsp" />
 
 </div>
 </body>

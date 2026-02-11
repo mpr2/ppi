@@ -22,7 +22,7 @@ public class FileUploadBean {
 
     private String errorMessage;
 
-    public boolean doFilePost(HttpServletRequest request, ServletContext context) throws Exception {
+    public boolean doFilePost(HttpServletRequest request, ServletContext context) {
         if (request.getContentType() == null) {
             return false;
         }
@@ -62,11 +62,11 @@ public class FileUploadBean {
             setErrorMessage("Tamanho excedido");
             return false;
         }
-/*         catch (Exception e) {
+        catch (Exception e) {
             e.printStackTrace();
             setErrorMessage("Uma exceção ocorreu: " + e.getMessage());
             return false;
-        } */
+        }
         return true;
     }
 

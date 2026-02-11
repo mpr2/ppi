@@ -125,6 +125,7 @@
             <button type="submit">Remover Categoria</button>
         </form>
     </div>
+    <jsp:include page="footer.jsp" />
 
 </div>
 </body>
